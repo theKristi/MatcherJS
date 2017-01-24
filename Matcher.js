@@ -33,5 +33,15 @@ function generateBoard(){
 function generatePiece(){
 	return Math.floor((Math.random()*5));
 }
-
+function FindGroups(){
+	for(let i=0; i<board.length;i++){
+		
+		for(let j=0;j<board[i].length;j++){
+			//get pieces touching this piece
+			
+		
+		}
+		
+	}
+}
 }
