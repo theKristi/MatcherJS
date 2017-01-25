@@ -3,17 +3,18 @@ var width=Math.floor((Math.random()*12)+3);
 var height=Math.floor((Math.random()*12)+3)
 let board=new Board(width, height);
 board.draw();
+FindGroups(board);
 }
 Board=function(width, height){
 this.width=width;
 this.height=height;
-let board=generateBoard();
+this.values=generateBoard();
 this.draw=function(){
 	var str=""
-	for(let i=0; i<board.length;i++){
+	for(let i=0; i<this.values.length;i++){
 		str+="<div id='row"+i+"'>";
-		for(let j=0;j<board[i].length;j++){
-			str+="<span id='piece"+j+"'>"+board[i][j]+"</span>";
+		for(let j=0;j<this.values[i].length;j++){
+			str+="<span id='piece"+j+"'>"+this.values[i][j].value+"</span>";
 		}
 		str+="</div>";
 	}
@@ -25,23 +26,66 @@ function generateBoard(){
 	for(let i=0;i<width;i++){
 		res[i]=[];
 		for(let j=0;j<height;j++){
-			res[i][j]=Math.floor((Math.random()*5))
+			res[i][j]=generatePiece();
 		}
 	}
 	return res;
 }
 function generatePiece(){
-	return Math.floor((Math.random()*5));
+	return {value: Math.floor((Math.random()*5)+1)};
 }
-function FindGroups(){
-	for(let i=0; i<board.length;i++){
+
+
+}
+function FindGroups(board){
+	for(let i=0; i<board.values.length;i++){
 		
-		for(let j=0;j<board[i].length;j++){
-			//get pieces touching this piece
-			
-		
+		for(let j=0;j<board.values[i].length;j++){
+			let downChain=getChain([],"DOWN",board,i,j);
+			if(downChain.length>3)
+			downChain.forEach(function(location){
+				highlightPiece(location.row, location.col)
+			});
+			let rightChain=getChain([],"RIGHT",board,i,j);
+			if(rightChain.length>3)
+			rightChain.forEach(function(location){
+				highlightPiece(location.row, location.col)
+			});
 		}
 		
 	}
 }
+
+function getChain(pieces, direction, board, rowIndex, colIndex){
+	if(direction=="DOWN")
+	{
+		let match=false;
+		let current=board.values[rowIndex][colIndex]
+		if(rowIndex+1<board.values.length)
+			 match=board.values[rowIndex+1][colIndex].value==current.value;
+		if(match){
+			pieces.push({row:rowIndex, col:colIndex})
+			pieces.push({row:rowIndex+1, col:colIndex});
+			return getChain(pieces,"DOWN",board,rowIndex+1,colIndex);
+		}
+		return pieces;
+	}
+	if(direction=="RIGHT"){
+		
+		let match=false;
+		let current=board.values[rowIndex][colIndex]
+		if(colIndex+1<board.values[rowIndex].length)
+			 match=board.values[rowIndex][colIndex+1].value==current.value;
+		if(match){
+			pieces.push({row:rowIndex, col:colIndex})
+			pieces.push({row:rowIndex, col:colIndex+1});
+			return getChain(pieces,"RIGHT",board,rowIndex,colIndex+1);
+		}
+		return pieces;
+	}
+	
+}
+function highlightPiece(row, col){
+	let elem=$("#row"+row).find("#piece"+col)[0];
+	$(elem).addClass("hilight")
 }
