@@ -1,3 +1,6 @@
 .hilight{
 background: yellow;
 }
+.selected{
+	border: 1px;
+}
