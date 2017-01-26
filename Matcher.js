@@ -4,7 +4,7 @@ var height=Math.floor((Math.random()*12)+3)
 let board=new Board(width, height);
 board.draw();
 FindGroups(board);
-setClickEvents()
+setClickEvents(board);
 }
 Board=function(width, height){
 this.width=width;
@@ -15,7 +15,7 @@ this.draw=function(){
 	for(let i=0; i<this.values.length;i++){
 		str+="<div id='row"+i+"'>";
 		for(let j=0;j<this.values[i].length;j++){
-			str+="<span class='gamePiece' id='piece"+j+"'>"+this.values[i][j].value+"</span>";
+			str+="<span class='gamePiece sphere' id='piece"+j+"'>"+this.values[i][j].value+"</span>";
 		}
 		str+="</div>";
 	}
@@ -91,17 +91,35 @@ function highlightPiece(row, col){
 	$(elem).addClass("hilight")
 }
 var Clicked;
-function setClickEvents(){
+function setClickEvents(board){
 	$(".gamePiece").on("click",function(){
+		$(".gamePiece").removeClass("selected");
 		let piece=this;
 		$(piece).addClass("selected");
 		//get piece coords
 		let col=parseInt(piece.id.match(/\d+/g)[0]);
 		let elem=$(piece).closest("div")[0];
 		let row=parseInt(elem.id.match(/\d+/g));
-		
+		var location={row:row, col:col}
+		if(Clicked!=undefined)
+		{
+			swap(Clicked,location,board);
+		}
+		else{
+			Clicked=location;
+		}
 		
 		
 	});
 }
-function swap(piece1, piece2){}
+function swap(piece1, piece2,board){
+let piece1Value=board.values[piece1.row][piece1.col];
+let piece2Value=board.values[piece2.row][piece2.col];
+board.values[piece1.row][piece1.col]=piece2Value;
+board.values[piece2.row][piece2.col]=piece1Value;
+board.draw();
+FindGroups(board);
+Clicked=undefined;
+setClickEvents(board);
+
+}
