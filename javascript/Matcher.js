@@ -127,5 +127,5 @@ setClickEvents(board);
 function checkForWin(board){
 	let pieces=$('.gamePiece:not(.hilight)');
 	if(pieces.length==0)
-		alert("You won!!")
+		buildFireWorks();
 }

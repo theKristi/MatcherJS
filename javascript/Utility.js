@@ -8,8 +8,8 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
-buildFireWorks(){
+function buildFireWorks(){
 	
 	let container='<div class="pyro"><div class="before"></div><div class="after"></div></div>'
-	$("body").append(container)
+	$("body").append(container);
 }
