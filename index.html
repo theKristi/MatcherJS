@@ -18,6 +18,7 @@
   crossorigin="anonymous"></script>  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
    <script src="Matcher.js"></script>
+     <script src="openAbout.js"></script>
 
    <div>
      <nav class="navbar navbar-inverse navbar-static-top">
@@ -28,11 +29,26 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-          
+                <li class="active"><a href="#">Home</a></li>
+                <li><a onClick="openNav()">About</a></li>
+              
+                
               </ul>
             </div>
           </div>
         </nav>
+	<div id="myNav" class="overlay">
+
+  <!-- Button to close the overlay navigation -->
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+  <!-- Overlay content -->
+   <div class="overlay-content">
+		<p>Swap any two pices on the board to match numbers into rows or columns of 3 or more. You win when all the pieces are highlighted.</p>
+  </div>
+
+</div>
+
   </div>
    <button class="btn btn-lg" onclick="CreateRandomBoard()">Generate Random Level</button>
    <div id="board"></div>
