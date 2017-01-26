@@ -1,6 +1,6 @@
 function CreateRandomBoard(){
 var width=Math.floor((Math.random()*12)+3);
-var height=Math.floor((Math.random()*12)+3)
+var height=Math.floor((Math.random()*10)+3)
 let board=new Board(width, height);
 board.draw();
 FindGroups(board);
@@ -104,6 +104,7 @@ function setClickEvents(board){
 		if(Clicked!=undefined)
 		{
 			swap(Clicked,location,board);
+			checkForWin(board);
 		}
 		else{
 			Clicked=location;
@@ -122,4 +123,9 @@ FindGroups(board);
 Clicked=undefined;
 setClickEvents(board);
 
+}
+function checkForWin(board){
+	let pieces=$('.gamePiece:not(.hilight)');
+	if(pieces.length==0)
+		alert("You won!!")
 }

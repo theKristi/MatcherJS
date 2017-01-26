@@ -27,3 +27,6 @@ background: yellow;
   border-radius: 50%;
   transform: rotate(40deg);
 }
+.gamePiece{
+	cursor:pointer;
+}
