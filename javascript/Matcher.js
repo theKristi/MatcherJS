@@ -116,6 +116,9 @@ function setClickEvents(board){
 		
 	});
 }
+function disableClickEvents(){
+	$(".gamePiece").off("click");
+}
 function swap(piece1, piece2,board){
 let piece1Value=board.values[piece1.row][piece1.col];
 let piece2Value=board.values[piece2.row][piece2.col];
@@ -129,8 +132,10 @@ setClickEvents(board);
 }
 function checkForWin(board){
 	let pieces=$('.gamePiece:not(.hilight)');
-	if(pieces.length==0)
+	if(pieces.length==0){
+		disableClickEvents()
 		buildFireWorks();
+	}
 }
 function CanWin(values){
 	var counts=[];
