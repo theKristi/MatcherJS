@@ -12,6 +12,6 @@ function buildFireWorks(){
 	
 	
 	$("#board").addClass("pyro");
-	$("#board").prepend("<div class='before'></div><div class='after'></div>");
-	$("body").addClass("noOverflow")
+	$("#board").append("<div class='before'></div><div class='after'></div>");
+
 }

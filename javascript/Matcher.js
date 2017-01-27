@@ -5,6 +5,8 @@ let board=new Board(width, height);
 board.draw();
 FindGroups(board);
 setClickEvents(board);
+$("body").removeClass("noOverflow");
+//buildFireWorks()
 }
 Board=function(width, height){
 this.width=width;
@@ -24,12 +26,13 @@ this.draw=function(){
 return this;
 function generateBoard(){
 	var res=[];
+	do{
 	for(let i=0;i<width;i++){
 		res[i]=[];
 		for(let j=0;j<height;j++){
 			res[i][j]=generatePiece();
 		}
-	}
+	}}while(!CanWin(res));	
 	return res;
 }
 function generatePiece(){
@@ -128,4 +131,25 @@ function checkForWin(board){
 	let pieces=$('.gamePiece:not(.hilight)');
 	if(pieces.length==0)
 		buildFireWorks();
+}
+function CanWin(values){
+	var counts=[];
+	for(let i=0;i<values.length;i++){
+		
+		for(let j=0;j<values[i].length;j++){
+			if(counts[values[i][j].value]==undefined)
+			{
+				counts[values[i][j].value]=1;
+			}
+			else{
+				counts[values[i][j].value]++;
+			}
+		}
+	}
+	var enough=true;
+	counts.forEach(function(count){
+			if(count<3)
+				enough=false;
+	});
+	return enough;
 }
