@@ -1,3 +1,4 @@
+let moves=0;
 function CreateRandomBoard(){
 var width=Math.floor((Math.random()*12)+3);
 var height=Math.floor((Math.random()*10)+3)
@@ -6,6 +7,8 @@ board.draw();
 FindGroups(board);
 setClickEvents(board);
 $("body").removeClass("noOverflow");
+$(".scoreContainer").remove();
+$(".newScoreContainer").append("<div class='scoreContainer'><label>Moves:</label><div id=moves></div> </div>")
 //buildFireWorks()
 }
 Board=function(width, height){
@@ -59,7 +62,7 @@ function FindGroups(board){
 		
 	}
 }
-
+ 
 function getChain(pieces, direction, board, rowIndex, colIndex){
 	if(direction=="DOWN")
 	{
@@ -124,8 +127,11 @@ let piece1Value=board.values[piece1.row][piece1.col];
 let piece2Value=board.values[piece2.row][piece2.col];
 board.values[piece1.row][piece1.col]=piece2Value;
 board.values[piece2.row][piece2.col]=piece1Value;
+moves++;
+$("#moves")[0].textContent=moves;
 board.draw();
 FindGroups(board);
+
 Clicked=undefined;
 setClickEvents(board);
 
